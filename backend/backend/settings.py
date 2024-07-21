@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-60ljke4d^zx-($s2mq=!9a=g2m21#azvu8(7)_yhhl9u)0$wqe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.155.213"]
 
 
 # Application definition
@@ -41,13 +41,17 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders',
+    
     'users',
     # 'events',
 ]
 
 AUTH_USER_MODEL = 'users.Student'
+CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://192.168.155.84:5173']
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
