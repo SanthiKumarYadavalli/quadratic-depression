@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-theme="dark"] {
+	--bg-color: #1a202c;
+	--text-color: #fff;
+	/* Add more custom properties as needed */
+}
+
+[data-theme="light"] {
+	--bg-color: #fff;
+	--text-color: #000;
+	/* Add more custom properties as needed */
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--text-color);
+}
+
+video {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	max-width: 100%;
+	min-height:100%;
+	width:auto;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+}
