@@ -9,10 +9,14 @@ class Event(models.Model):
     # host = models.ForeignKey(Student, on_delete=models.CASCADE)
     description = models.TextField()
     start_time = models.DateTimeField()
-    # category = models.CharField()
+    # category = models.CharField(max_length=23)
     status = models.CharField(max_length=23)
     # participants = models.ManyToManyField(Student, blank=True, related_name='participants')
-    # volunteer = models.ManyToManyField(Student, blank=True, related_name='volunteers')
+    # volunteers = models.ManyToManyField(Student, blank=True, related_name='volunteers')
+    # eligibility = models.CharField(max_length=23)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Feedback(models.Model):
@@ -20,3 +24,6 @@ class Feedback(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     review = models.TextField()
     rating = models.IntegerField()
+
+    def __str__(self) -> str:
+        return self.review[:23]
