@@ -4,6 +4,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Student
 
+
 class StudentCreate(generics.CreateAPIView):
     serializer_class = StudentSerializer
     
