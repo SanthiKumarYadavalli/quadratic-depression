@@ -8,4 +8,6 @@ urlpatterns = [
     path("add-volunteer/<int:pk>/", views.add_volunteers),
     path("add-feedback/<int:pk>/", views.add_feedback),
     path("get-feedback/<int:pk>/", views.FeedbackList.as_view()),
+    path("get-ai-name/", views.ai_name),
+    path("get-ai-img/", views.ai_img),
 ]
