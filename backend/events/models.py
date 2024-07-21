@@ -6,7 +6,7 @@ from users.models import Student
 
 class Event(models.Model):
     name = models.CharField(max_length=32)
-    host = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+    host = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, related_name='hosted')
     description = models.TextField()
     start_time = models.DateTimeField(null=True)
     category = models.CharField(max_length=23)
@@ -14,8 +14,8 @@ class Event(models.Model):
     eligibility = models.CharField(max_length=23)
     venue = models.TextField()
     image = models.CharField(max_length=100, null=True)
-    participants = models.ManyToManyField(Student, blank=True, related_name='participants')
-    volunteers = models.ManyToManyField(Student, blank=True, related_name='volunteers')
+    participants = models.ManyToManyField(Student, blank=True, related_name='participated')
+    volunteers = models.ManyToManyField(Student, blank=True, related_name='volunteered')
 
     def __str__(self) -> str:
         return self.name
