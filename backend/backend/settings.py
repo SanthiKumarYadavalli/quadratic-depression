@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     
     'users',
-    # 'events',
+    'events',
 ]
 
 AUTH_USER_MODEL = 'users.Student'
