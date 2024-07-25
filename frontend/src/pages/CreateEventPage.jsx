@@ -35,11 +35,11 @@ const CreateEventPage = () => {
   };
 
   async function generateName(e) {
-    e.preventDefault();
+    // e.preventDefault();
     console.log(1);
     console.log(formData.description);
 
-    const url = "http://192.168.155.213:8000/events/get-ai-name/";
+    const url = `${process.env.REACT_APP_API}/events/get-ai-name/`;
     const payload = {
       prompt: formData.description,
     };
@@ -77,7 +77,7 @@ const CreateEventPage = () => {
     console.log(1);
     console.log(formData.description);
 
-    const url = "http://192.168.155.213:8000/events/get-ai-img/";
+    const url = `${process.env.REACT_APP_API}/events/get-ai-img/`;
     const payload = {
       prompt: formData.description,
     };
@@ -115,7 +115,7 @@ const CreateEventPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://192.168.155.213:8000/events/",
+        `${process.env.REACT_APP_API}/events/`,
         formData,
         {
           headers: {

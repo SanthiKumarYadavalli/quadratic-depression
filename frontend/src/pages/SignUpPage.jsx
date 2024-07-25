@@ -9,8 +9,7 @@ const SignUpPage = () => {
   const registerUser = async (userData) => {
     try {
       const response = await axios.post(
-        // `${process.env.REACT_APP_API}/user/register/`,
-        "http://192.168.155.213:8000/user/register/",
+        `${process.env.REACT_APP_API}/user/register/`,
         userData
       );
 
@@ -75,7 +74,7 @@ const SignUpPage = () => {
     //		<div className="max-w-md w-full bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20
     //hover:bg-opacity-30 border border-gray-700 text-white shadow-lg rounded-lg p-6 sm:p-8">
     <>
-      <video src="../../public/bg.mp4" autoPlay loop muted playsInline></video>
+      <video src="/bg.mp4" autoPlay loop muted playsInline></video>
       <div className="flex items-center justify-center min-h-screen p-4 sm:p-8 md:p-12 lg:p-16">
         <div className="w-full max-w-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 hover:bg-gray-600/10 border border-gray-800 text-white shadow-md rounded-lg p-8">
           <h1 className="text-2xl font-bold mb-6 text-center">

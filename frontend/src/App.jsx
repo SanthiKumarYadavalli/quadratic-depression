@@ -29,22 +29,22 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
-            path="/login"
+            path="/login/"
             element={!authUser ? <LoginPage /> : <Navigate to={"/"} />}
           />
           <Route
-            path="/signup"
+            path="/signup/"
             element={!authUser ? <SignUpPage /> : <Navigate to={"/"} />}
           />
           <Route
-            path="/events"
+            path="/events/"
             element={authUser ? <EventsPage /> : <Navigate to={"/login"} />}
           />
           <Route
-            path="/dashboard"
+            path="/dashboard/"
             element={authUser ? <UserDashboard /> : <Navigate to={"/login"} />}
           />
-          <Route path="/create-event" element={<CreateEventPage />} />
+          <Route path="/create-event/" element={<CreateEventPage />} />
 \        </Routes>
         <Toaster />
       </div>

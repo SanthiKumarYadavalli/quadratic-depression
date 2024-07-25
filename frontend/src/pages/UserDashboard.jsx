@@ -20,19 +20,19 @@ function UserDashboard() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://192.168.155.213:8000/user/get/', {
+        const response = await axios.get(`${process.env.REACT_APP_API}/user/get/`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setUserData(response.data);
+        setUserData(response.data[0]);
 
         const [registeredResponse, volunteeringResponse, createdResponse] = await Promise.all([
-          axios.get('http://192.168.155.213:8000/events/registered', {
+          axios.get(`${process.env.REACT_APP_API}/user/participating/`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://192.168.155.213:8000/events/volunteering', {
+          axios.get(`${process.env.REACT_APP_API}/user/volunteering/`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://192.168.155.213:8000/events/created', {
+          axios.get(`${process.env.REACT_APP_API}/user/hosting/`, {
             headers: { Authorization: `Bearer ${token}` },
           })
         ]);

@@ -1,3 +1,6 @@
 venv/
 .vscode/
 **/__pycache__/
+# Local Netlify folder
+.netlify
+/frontend/node_modules/

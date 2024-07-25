@@ -19,7 +19,7 @@ const HomePage = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
-      <video src="../../public/bg.mp4" autoPlay loop muted playsInline></video>
+      <video src="/bg.mp4" autoPlay loop muted playsInline></video>
     </div>
   );
 };

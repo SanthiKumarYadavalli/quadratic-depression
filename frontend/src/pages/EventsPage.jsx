@@ -111,7 +111,7 @@ const EventsPage = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://192.168.155.213:8000/events/",
+          `${process.env.REACT_APP_API}/events/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
