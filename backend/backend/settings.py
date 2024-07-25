@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-60ljke4d^zx-($s2mq=!9a=g2m21#azvu8(7)_yhhl9u)0$wqe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.155.213", "baadha.pythonanywhere.com"]
+ALLOWED_HOSTS = ["192.168.155.213", "baadha.pythonanywhere.com", "localhost"]
 
 
 # Application definition
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'cloudinary',
+    'cloudinary_storage',
     
     'users',
     'events',
@@ -153,3 +155,12 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'sithlord5995@gmail.com'
 EMAIL_HOST_PASSWORD = 'cezmwkmytywwmicp'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dxyqdbsvu',
+    'API_KEY': '521421286928931',
+    'API_SECRET': 'q8etcCa7zPPhb-vJAWEgIyYbk9A',
+}
+
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

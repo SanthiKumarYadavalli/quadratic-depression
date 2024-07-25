@@ -1,29 +1,7 @@
 from django.conf import settings
 from django.core.mail import EmailMessage
 import google.generativeai as genai
-import requests
 
-def get_ai_img(prompt):
-
-    url = "https://api.limewire.com/api/image/generation"
-
-    payload = {
-    "prompt": prompt,
-    "aspect_ratio": "1:1"
-    }
-
-    headers = {
-    "Content-Type": "application/json",
-    "X-Api-Version": "v1",
-    "Accept": "application/json",
-    "Authorization": "Bearer lmwr_sk_7R8Pp4eqk9_vrEQi1B9q6dm74Yw5TWT6nyRYwXdR77opz6fm"
-    }
-    
-    print(f"### {prompt}")
-    response = requests.post(url, json=payload, headers=headers)
-    data = response.json()
-    print(f"**********\n {data} \n\n")
-    return data['data'][0]['asset_url']
 
 def get_ai_name(prompt):
 

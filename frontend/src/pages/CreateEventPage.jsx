@@ -28,28 +28,22 @@ const CreateEventPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
+    }))
+    console.log(formData);
   };
 
   async function generateName(e) {
-    // e.preventDefault();
+    e.preventDefault();
     console.log(1);
     console.log(formData.description);
 
     const url = `${process.env.REACT_APP_API}/events/get-ai-name/`;
     const payload = {
       prompt: formData.description,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      "X-Api-Version": "v1",
-      Accept: "application/json",
-      Authorization:
-        "Bearer lmwr_sk_KDYogPbbB6_ionFslmdFUaacvEDMP9cGATbQ3inS7WLmAm3b",
     };
 
     try {
@@ -72,42 +66,6 @@ const CreateEventPage = () => {
     }
   }
 
-  async function generateImage(e) {
-    e.preventDefault();
-    console.log(1);
-    console.log(formData.description);
-
-    const url = `${process.env.REACT_APP_API}/events/get-ai-img/`;
-    const payload = {
-      prompt: formData.description,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      "X-Api-Version": "v1",
-      Accept: "application/json",
-      Authorization:
-        "Bearer lmwr_sk_KDYogPbbB6_ionFslmdFUaacvEDMP9cGATbQ3inS7WLmAm3b",
-    };
-
-    try {
-      // const response = await fetch(url, {
-      //   method: "POST",
-      //   body: JSON.stringify(payload),
-      // });
-
-      const response = await axios.post(url, payload);
-
-      // const data = await response;
-
-      console.log(response);
-      console.log(response.url);
-      setImageUrl(response.url);
-    } catch (error) {
-      console.error("Error generating Image:", error);
-      throw error; // Re-throw the error for handling in the calling code
-    }
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -165,11 +123,9 @@ const CreateEventPage = () => {
             Generate Name
           </button>
           <br></br>
-          <button className="bg-blue-600" type="submit" onClick={generateImage}>
-            Generate Photo
-          </button>
 
-          <img src={imageUrl}/>
+
+          <img src={imageUrl} />
 
           <div className="mb-4">
             <label

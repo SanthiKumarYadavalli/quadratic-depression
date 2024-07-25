@@ -1,5 +1,5 @@
 from .serializers import StudentSerializer
-from events.serializer import EventSerializer
+from events.serializers import EventSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Student
@@ -14,6 +14,7 @@ class StudentCreate(generics.CreateAPIView):
         if mail:
             send_mail(name=self.request.data.get(
                 'name'), to=mail, fr='register')
+        serializer.save()
     
     
 class StudentList(generics.ListAPIView):

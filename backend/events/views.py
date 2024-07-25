@@ -1,12 +1,12 @@
 from rest_framework import generics, status
-from .serializer import EventSerializer, FeedbackSerializer
+from .serializers import EventSerializer, FeedbackSerializer
 from rest_framework.permissions import IsAuthenticated
 from .models import Event, Feedback
 from users.serializers import StudentSerializer
 from users.models import Student
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .utils import get_ai_name, send_mail, get_ai_img
+from .utils import get_ai_name, send_mail
 
 
 class EventList(generics.ListCreateAPIView):  # /events/
@@ -70,13 +70,6 @@ A creative name for {request.data.get('prompt')}"""
     print(request.data)
     name = get_ai_name(prompt)
     return Response({'name': name}, status=status.HTTP_200_OK)
-
-@api_view(["POST"])
-def ai_img(request):
-    prompt = request.data['prompt']
-    print(request.data['prompt'])
-    url = get_ai_img(prompt)
-    return Response({'url': url}, status=status.HTTP_200_OK)
 
 
 class FeedbackList(generics.ListAPIView):  # events/get-feedback/pk
