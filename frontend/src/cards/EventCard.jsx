@@ -3,7 +3,7 @@ import React from "react";
 
 const EventCard = ({ card }) => {
   console.log(card, card.image);
-  const image = card.image ? card.image : "";
+  const image = card.image ? card.image : "https://via.placeholder.com/400";
   console.log(image);
 
   return (

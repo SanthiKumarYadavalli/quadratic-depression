@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
             throw new Error("No token found");
           }
 
-          const res = await axios.get("/users/check", {
+          const res = await axios.get("/user/get/", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -35,7 +35,7 @@ export const AuthContextProvider = ({ children }) => {
           if (error.response && error.response.status === 401) {
             e.preventDefault();
             toast.error("Not authorized. Please log in.");
-            window.location.href = "/login";
+            window.location.href = "/login/";
           } else {
             toast.error(error.message);
           }
