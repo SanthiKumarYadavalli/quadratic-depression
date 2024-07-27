@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-60ljke4d^zx-($s2mq=!9a=g2m21#azvu8(7)_yhhl9u)0$wqe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.155.213", "baadha.pythonanywhere.com", "localhost"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'users.Student'
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'https://quadratic-depression.netlify.app']
+CORS_ALLOWED_ORIGINS = ['*']
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
