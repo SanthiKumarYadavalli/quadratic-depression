@@ -13,7 +13,7 @@ class Event(models.Model):
     status = models.CharField(max_length=23, default="upcoming")
     eligibility = models.CharField(max_length=23)
     venue = models.TextField()
-    image = models.ImageField(upload_to="images")
+    image = models.ImageField(upload_to="images", null=True)
     participants = models.ManyToManyField(Student, blank=True, related_name='participated')
     volunteers = models.ManyToManyField(Student, blank=True, related_name='volunteered')
 

@@ -1,12 +1,11 @@
 from rest_framework import generics, status
 from .serializers import EventSerializer, FeedbackSerializer
 from rest_framework.permissions import IsAuthenticated
+from django.core.files.base import ContentFile
 from .models import Event, Feedback
-from users.serializers import StudentSerializer
-from users.models import Student
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .utils import get_ai_name, send_mail
+from .utils import get_ai_name, send_mail, generate_ai_image
 
 
 class EventList(generics.ListCreateAPIView):  # /events/
@@ -18,12 +17,15 @@ class EventList(generics.ListCreateAPIView):  # /events/
         return events
 
     def perform_create(self, serializer):
-        # serializer.participants.add(self.request.user)
-        user = Student.objects.get(id=self.request.user)
+        user = self.request.user
         mail = user.email
         if mail:
             send_mail(name=user.name, to=mail, fr='new_event')
-        serializer.save(host=user)
+        if self.request.data.get("imageType") == "generate":
+            image_file = ContentFile(generate_ai_image(self.request.data.get("description")), name="temp.jpg")
+        else:
+            image_file = self.request.data.get('fileUpload')
+        serializer.save(host=user, image=image_file)
 
 
 class EventDetails(generics.RetrieveUpdateAPIView):  # /events/pk
@@ -34,9 +36,6 @@ class EventDetails(generics.RetrieveUpdateAPIView):  # /events/pk
     def get_queryset(self):
         events = Event.objects.filter(host=self.request.user)
         return events
-
-    # def perform_update(self, serializer):
-    #     serializer.save()
         
 
 @api_view(['GET'])

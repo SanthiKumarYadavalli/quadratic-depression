@@ -1,17 +1,24 @@
 from django.conf import settings
 from django.core.mail import EmailMessage
 import google.generativeai as genai
+import requests
 
 
 def get_ai_name(prompt):
-
     genai.configure(api_key="AIzaSyBTTtStGblJ0t6hgUlwOiqex1lSCEWB4dQ")
-
     model = genai.GenerativeModel('gemini-1.5-flash')
-
     response = model.generate_content(prompt)
     print(prompt, response.text)
     return response.text.strip()
+
+
+def generate_ai_image(prompt):
+    payload = {
+        "prompt": prompt,
+        "output_format": "bytes",
+    }
+    res = requests.post("https://ai-api.magicstudio.com/api/ai-art-generator", data=payload)
+    return res.content
 
 
 def send_mail(name, to, fr):
@@ -21,7 +28,10 @@ def send_mail(name, to, fr):
                              from_email=settings.EMAIL_HOST_USER, to=[to])
         email.send(fail_silently=False)
     elif fr == 'new_event':
-        subject, body = EmailMessage(subject=subject, body=body, from_email=settings.EMAIL_HOST_USER, to=[to])
+        subject, body = new_event(name)
+        email = EmailMessage(subject=subject, body=body, from_email=settings.EMAIL_HOST_USER, to=[to])
+        email.send(fail_silently=False)
+        
 
 def new_event(name):
         subject = f"You've created a new event {name}!"
