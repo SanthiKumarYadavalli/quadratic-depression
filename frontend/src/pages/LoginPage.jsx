@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUnlockAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
+  
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const loginUser = async (userData) => {
     try {
       const response = await axios.post(
@@ -63,6 +66,21 @@ const LoginPage = () => {
       toast.error("Login Error");
     }
   };
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      return window.matchMedia("(max-width: 768px)").matches;
+    };
+
+    setIsMobileMenuOpen(checkScreenSize());
+
+    const handleResize = () => {
+      setIsMobileMenuOpen(checkScreenSize());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>

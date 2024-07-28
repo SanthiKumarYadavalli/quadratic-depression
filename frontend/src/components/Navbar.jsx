@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import Logout from "./Logout";
 import { useAuthContext } from "../context/AuthContext";
 import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
-import useTheme from "../hooks/useTheme";
 
 const Navbar = () => {
   const { authUser } = useAuthContext();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [theme, toggleTheme] = useTheme();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -19,7 +17,7 @@ const Navbar = () => {
       <nav className="container mx-auto flex items-center justify-between py-2 px-4">
         <div className="flex items-center">
           <img className="h-6 mr-2" src="/rgukt.jpeg" alt="Github Logo" />
-          <h1 className="text-lg font-bold">RGUKT</h1>
+          <h1 className="text-lg font-bold">RK Valley</h1>
         </div>
         <div className="hidden md:flex gap-2 items-center">
           {!authUser && (
@@ -63,14 +61,6 @@ const Navbar = () => {
             </>
           )}
           {authUser && <Logout />}
-          {authUser && (
-            <button
-              onClick={toggleTheme}
-              className="text-gray-700 focus:outline-none p-2 rounded-full hover:bg-gray-900 transition-colors duration-200"
-            >
-              {theme === "dark" ? <FaSun size={20} /> : <FaMoon size={20} />}
-            </button>
-          )}
         </div>
         <div className="md:hidden flex items-center">
           <button
@@ -94,18 +84,18 @@ const Navbar = () => {
             {authUser && (
               <>
                 <Link
-                  to="/likes"
+                  to="/events"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full text-left px-2 py-2 transition-colors duration-200 hover:bg-gray-800"
                 >
-                  Likes
+                  Events
                 </Link>
                 <Link
-                  to="/explore"
+                  to="/dashboard"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full text-left px-2 py-2 transition-colors duration-200 hover:bg-gray-800"
                 >
-                  Explore
+                  Dashboard
                 </Link>
               </>
             )}

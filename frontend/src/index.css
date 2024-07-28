@@ -5,13 +5,11 @@
 [data-theme="dark"] {
 	--bg-color: #1a202c;
 	--text-color: #fff;
-	/* Add more custom properties as needed */
 }
 
 [data-theme="light"] {
 	--bg-color: #fff;
-	--text-color: #000;
-	/* Add more custom properties as needed */
+	--text-color: #1a202c;
 }
 
 body {
@@ -19,13 +17,25 @@ body {
 	color: var(--text-color);
 }
 
+.video-container {
+	position: absolute;
+	width: auto;
+	height:auto;
+	overflow: hidden;
+}
 video {
+	overflow: hidden;
 	position: fixed;
+	width:auto;
+	height:auto;
 	top: 50%;
 	left: 50%;
-	max-width: 100%;
-	min-height:100%;
-	width:auto;
 	transform: translate(-50%, -50%);
 	z-index: -1;
+}
+.cardImg{
+	border:1px ;
+	border-radius:10px;
+	box-shadow: 2px white;
+	object-fit:contain;
 }

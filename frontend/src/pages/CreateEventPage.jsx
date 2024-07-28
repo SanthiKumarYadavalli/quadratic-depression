@@ -4,72 +4,78 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const CreateEventPage = () => {
-  const [imageUrl, setImageUrl] = useState(null);
-
-  // This effect will run when `imageUrl` changes and will reload the page
-  useEffect(() => {
-    if (imageUrl) {
-      // To ensure the page reloads after image URL is set
-      window.location.reload();
-    }
-  }, [imageUrl]);
+  const [selectedOption, setSelectedOption] = useState('upload');
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedDateTime, setSelectedDateTime] = useState('');
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    imageType: "",
+    fileUpload:null,
     startDateTime: "",
     category: "",
     eligibility: "",
     venue: "",
-    imageUrl: "",
   });
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setFormData({
+      ...formData,
+      fileUpload: event.target.files[0],
+    });
+  }
+  const handleDateTimeChange = (event) => {
+    setSelectedDateTime(event.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      startDateTime: event.target.value,
+    }));
+  };
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }))
-    console.log(formData);
   };
 
   async function generateName(e) {
     e.preventDefault();
-    console.log(1);
-    console.log(formData.description);
-
     const url = `${process.env.REACT_APP_API}/events/get-ai-name/`;
     const payload = {
       prompt: formData.description,
     };
 
     try {
-      // const response = await fetch(url, {
-      //   method: "POST",
-      //   body: JSON.stringify(payload),
-      // });
-
       const response = await axios.post(url, payload);
-
-      // const data = await response;
-
-      // setName(data.name);
-      console.log(response);
-      console.log(response.name);
       document.getElementById("name").value = response.data.name;
+      formData.name = response.data.name;
     } catch (error) {
       console.error("Error generating name:", error);
-      throw error; // Re-throw the error for handling in the calling code
+      throw error;
     }
   }
-
-
+  const handleUpload = (e) => {
+    formData.fileUpload=selectedFile;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (selectedOption === 'upload') {
+      formData.imageType = 'upload';
+      formData.fileUpload = selectedFile; // Attach selected file to formData
+    } else {
+      formData.imageType = 'generate';
+    }
+    console.log(formData);
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
@@ -78,7 +84,7 @@ const CreateEventPage = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json", // Adjusted for JSON data
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -96,7 +102,7 @@ const CreateEventPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black">
-      <div className="w-full max-w-5xl bg-gray-800 p-12 rounded-lg shadow-lg border border-gray-700">
+      <div className="w-full max-w-2xl bg-gray-800 p-6 sm:p-12 rounded-lg shadow-lg border border-gray-700">
         <h1 className="text-4xl font-bold text-white mb-8 text-center">
           Create New Event
         </h1>
@@ -119,19 +125,19 @@ const CreateEventPage = () => {
             />
           </div>
 
-          <button className="bg-blue-600" type="submit" onClick={generateName}>
+          <button
+            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+            type="button"
+            onClick={generateName}
+          >
             Generate Name
           </button>
           <br></br>
 
-
-          <img src={imageUrl} />
-
           <div className="mb-4">
             <label
               className="block text-white mb-2 text-sm font-medium"
-              htmlFor="name"
-            >
+              htmlFor="name">
               Event Name
             </label>
             <input
@@ -143,22 +149,58 @@ const CreateEventPage = () => {
               onChange={handleChange}
             />
           </div>
+          <div className='mb-4'>
+            <label
+              className="block text-white mb-2 text-sm font-medium"
+              htmlFor="image">
+              Image
+            </label>
+            <input
+              type="radio"
+              id="uploadOption"
+              name="image"
+              value="upload"
+              checked={selectedOption === "upload"}
+              onChange={handleOptionChange}
+            />
+            <label htmlFor="uploadOption">Upload a file</label>
+            &ensp;&ensp;
+            <input
+              type="radio"
+              id="uploadOption"
+              name="image"
+              value="generate"
+              checked={selectedOption === "generate"}
+              onChange={handleOptionChange}
+            /><label htmlFor="uploadOption" >Generate With AI</label>
+          </div>
+          {selectedOption === 'upload' && (
+            <div className="mb-4">
+              <input
+                type="file"
+                id="fileUpload"
+                name="fileUpload"
+                accept=".jpg, .jpeg, .png"
+                onChange={handleFileChange}
+                className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          )}
 
           <div className="mb-4">
             <label
               className="block text-white mb-2 text-sm font-medium"
               htmlFor="startDateTime"
             >
-              Start Date and Time
+              Select Date and Time:
             </label>
             <input
-              className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="datetime-local"
               id="startDateTime"
-              name="start_time"
-              value={formData.startDateTime}
-              onChange={handleChange}
-              // required
+              name="startDateTime"
+              value={selectedDateTime}
+              onChange={handleDateTimeChange}
+              className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -175,7 +217,6 @@ const CreateEventPage = () => {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              // required
             >
               <option value="" disabled>
                 Select Category
@@ -199,8 +240,9 @@ const CreateEventPage = () => {
               name="eligibility"
               value={formData.eligibility}
               onChange={handleChange}
-              // required
+            // required
             >
+              <option disabled>Select Year of Study</option>
               <option value="puc1">PUC1</option>
               <option value="puc2">PUC2</option>
               <option value="cse">CSE</option>
@@ -227,7 +269,7 @@ const CreateEventPage = () => {
               name="venue"
               value={formData.venue}
               onChange={handleChange}
-              // required
+            // required
             />
           </div>
 
