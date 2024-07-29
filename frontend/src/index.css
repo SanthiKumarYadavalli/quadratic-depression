@@ -33,6 +33,12 @@ video {
   transform: translate(-50%, -50%);
   z-index: -1;
 }
+.loader{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:75vh;
+}
 .cardImg {
   border: 1px;
   border-radius: 10px;
