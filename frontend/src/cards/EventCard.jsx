@@ -9,7 +9,7 @@ const EventCard = ({ card }) => {
   return (
     <a
       href="#"
-      className="p-8 max-w-lg border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-50 flex flex-col items-center"
+      className="p-8 max-w-lg border border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-50 flex flex-col"
     >
       <img
         src={image}
@@ -18,7 +18,7 @@ const EventCard = ({ card }) => {
       />
       <div className="mt-8">
         <h4 className="font-bold text-xl">{card.name}</h4>
-        <p className="mt-2 text-gray-900">{card.description} </p>
+        <p className="mt-2 text-white-900">{card.description} </p>
         <div className="mt-5">
           <button
             type="button"
