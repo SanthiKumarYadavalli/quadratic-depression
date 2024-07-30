@@ -36,7 +36,7 @@ const EventsPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <video src="/bg_home.mp4" autoPlay loop muted playsInline></video>
+      <video className="video-background__video" src="/bg_home.mp4" autoPlay loop muted playsInline></video>
       {loading ? (<div class="loader">
         <Triangle
           visible={true}

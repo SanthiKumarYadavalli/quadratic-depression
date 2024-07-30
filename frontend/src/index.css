@@ -62,3 +62,35 @@ video {
   margin-bottom:20px;
   margin-top:20px;
 }
+input[type="radio"]{
+  text-decoration:none;
+  list-style: none;
+}
+.toHide{
+  display:None;
+}
+
+.form-btn2,.form-btn1{
+  text-align:center;
+  border-radius:10px;
+  padding:10%;
+  width:150%;
+  height:100%;
+  display:flex ;
+  align-items:center;
+  justify-content:space-evenly;
+}
+.form-btn1{
+  border:2px solid grey;
+}
+.form-btn2{
+  border:2px solid cyan;
+}
+.form-btn2:active{
+  background-color:cyan;
+  color:black;
+}
+.form-btn1:active{
+  background-color:grey;
+  color:black;
+}

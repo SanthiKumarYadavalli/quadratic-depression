@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { VscBeaker } from "react-icons/vsc";       
+import { FaUpload } from "react-icons/fa6";
 
 const CreateEventPage = () => {
   const [selectedOption, setSelectedOption] = useState('upload');
@@ -12,7 +14,7 @@ const CreateEventPage = () => {
     name: "",
     description: "",
     imageType: "",
-    fileUpload:null,
+    fileUpload: null,
     startDateTime: "",
     category: "",
     eligibility: "",
@@ -65,13 +67,13 @@ const CreateEventPage = () => {
     }
   }
   const handleUpload = (e) => {
-    formData.fileUpload=selectedFile;
+    formData.fileUpload = selectedFile;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (selectedOption === 'upload') {
       formData.imageType = 'upload';
-      formData.fileUpload = selectedFile; // Attach selected file to formData
+      formData.fileUpload = selectedFile;
     } else {
       formData.imageType = 'generate';
     }
@@ -102,6 +104,7 @@ const CreateEventPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black">
+      <video className="video-background__video" src="/bg_home.mp4" autoPlay loop muted playsInline></video>
       <div className="w-full max-w-2xl bg-gray-800 p-6 sm:p-12 rounded-lg shadow-lg border border-gray-700">
         <h1 className="text-4xl font-bold text-white mb-8 text-center">
           Create New Event
@@ -131,6 +134,7 @@ const CreateEventPage = () => {
             onClick={generateName}
           >
             Generate Name
+
           </button>
           <br></br>
 
@@ -149,44 +153,47 @@ const CreateEventPage = () => {
               onChange={handleChange}
             />
           </div>
-          <div className='mb-4'>
+          <div className='mb-10'>
             <label
               className="block text-white mb-2 text-sm font-medium"
               htmlFor="image">
               Image
             </label>
-            <input
-              type="radio"
-              id="uploadOption"
-              name="image"
-              value="upload"
-              checked={selectedOption === "upload"}
-              onChange={handleOptionChange}
-            />
-            <label htmlFor="uploadOption">Upload a file</label>
-            &ensp;&ensp;
-            <input
-              type="radio"
-              id="uploadOption"
-              name="image"
-              value="generate"
-              checked={selectedOption === "generate"}
-              onChange={handleOptionChange}
-            /><label htmlFor="uploadOption" >Generate With AI</label>
-          </div>
-          {selectedOption === 'upload' && (
-            <div className="mb-4">
+            <div className="mb-4 flex flex-wrap justify-around">
               <input
-                type="file"
-                id="fileUpload"
-                name="fileUpload"
-                accept=".jpg, .jpeg, .png"
-                onChange={handleFileChange}
-                className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+                type="radio"
+                id="uploadOption"
+                name="image"
+                value="upload"
+                checked={selectedOption === "upload"}
+                onChange={handleOptionChange}
+                className="toHide"
+              /><label htmlFor="uploadOption"><div className="form-btn1"><FaUpload />Upload File</div></label>
+              <input
+                type="radio"
+                id="generateOption"
+                name="image"
+                value="generate"
+                checked={selectedOption === "generate"}
+                onChange={handleOptionChange}
+                className="toHide"
+              /><label htmlFor="generateOption"><div className="form-btn2">Generate<VscBeaker/>
+              </div></label>
             </div>
-          )}
-
+            {selectedOption === 'upload' && (
+              <div className="mb-4">
+                <input
+                  type="file"
+                  id="fileUpload"
+                  name="fileUpload"
+                  accept=".jpg, .jpeg, .png"
+                  onChange={handleFileChange}
+                  className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            
+                />
+              </div>
+            )}
+          </div>
           <div className="mb-4">
             <label
               className="block text-white mb-2 text-sm font-medium"
