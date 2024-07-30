@@ -36,16 +36,18 @@ const EventsPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <video src="/bg_home.mp4" autoPlay loop muted playsInline></video>
       {loading ? (<div class="loader">
         <Triangle
           visible={true}
           height="80"
           width="80"
-          color="rgba(165, 180, 252,0.8)"
+          color="rgba(165, 180, 252,1)"
           ariaLabel="triangle-loading"
         />
       </div>) : (
         <>
+          <h1 className="text-4xl mb-6">Events for You</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {data.map((card) => (
               <EventCard key={card.id} card={card} />

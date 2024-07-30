@@ -54,14 +54,16 @@ function UserDashboard() {
 
   return (
     <>
+      <video src="/bg_home.mp4" autoPlay loop muted playsInline></video>
       {loading ? (<div class="loader"><Triangle
           visible={true}
           height="80"
           width="80"
-          color="rgba(165, 180, 252,0.8)"
+          color="rgba(165, 180, 252,1)"
           ariaLabel="triangle-loading"
         /></div>)
-        : (<div className="container mx-auto p-4">
+        : (
+        <div className="container mx-auto p-4">
           <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mb-8">
             <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">User Details</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -74,12 +76,12 @@ function UserDashboard() {
           </div>
 
           <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900 text-white">Registered Events</h2>
+            <h2 className="text-2xl font-bold mb-4 text-white-900 text-white">Registered Events</h2>
             {loading ? (<div class="loader"><Triangle
           visible={true}
           height="80"
           width="80"
-          color="rgba(165, 180, 252,0.8)"
+          color="rgba(165, 180, 252,1)"
           ariaLabel="triangle-loading"
         /></div>)
               : (<div className='card-container'>
@@ -90,7 +92,7 @@ function UserDashboard() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-700 text-gray-300">No registered events found.</p>
+                  <p className="text-white-300">No registered events found.</p>
                 )}
               </div>)}
           </div>
@@ -101,7 +103,7 @@ function UserDashboard() {
           visible={true}
           height="80"
           width="80"
-          color="rgba(165, 180, 252,0.8)"
+          color="rgba(165, 180, 252,1)"
           ariaLabel="triangle-loading"
         /></div>)
               : (<div className='card-container'>{volunteeringEvents.length > 0 ? (
@@ -111,7 +113,7 @@ function UserDashboard() {
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-700 text-gray-300">Not volunteering for any events.</p>
+                <p className="text-white-300">Not volunteering for any events.</p>
               )}
               </div>)}
           </div>
@@ -122,7 +124,7 @@ function UserDashboard() {
           visible={true}
           height="80"
           width="80"
-          color="rgba(165, 180, 252,0.8)"
+          color="rgba(165, 180, 252,1)"
           ariaLabel="triangle-loading"
         /></div>)
               : (<div className='card-container'>{createdEvents.length > 0 ? (
@@ -132,7 +134,7 @@ function UserDashboard() {
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-700 text-white-300">No events created.</p>
+                <p className="text-white-300">No events created.</p>
               )}
               </div>)}
               </div>
