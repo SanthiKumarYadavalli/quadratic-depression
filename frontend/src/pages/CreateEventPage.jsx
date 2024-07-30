@@ -168,7 +168,7 @@ const CreateEventPage = () => {
                 checked={selectedOption === "upload"}
                 onChange={handleOptionChange}
                 className="toHide"
-              /><label htmlFor="uploadOption"><div className="form-btn1"><FaUpload />Upload File</div></label>
+              /><label htmlFor="uploadOption"><div className={`form-btn1 ${selectedOption === 'upload' ? 'bg-gray-500 text-black' : ''}`}><FaUpload />Upload File</div></label>
               <input
                 type="radio"
                 id="generateOption"
@@ -177,7 +177,7 @@ const CreateEventPage = () => {
                 checked={selectedOption === "generate"}
                 onChange={handleOptionChange}
                 className="toHide"
-              /><label htmlFor="generateOption"><div className="form-btn2">Generate<VscBeaker/>
+              /><label htmlFor="generateOption"><div  className={`form-btn2 ${selectedOption === 'generate' ? 'bg-cyan-500 text-black' : ''}`}>Generate<VscBeaker/>
               </div></label>
             </div>
             {selectedOption === 'upload' && (
@@ -249,7 +249,7 @@ const CreateEventPage = () => {
               onChange={handleChange}
             // required
             >
-              <option disabled>Select Year of Study</option>
+              <option value="" disabled>Select Year of Study</option>
               <option value="puc1">PUC1</option>
               <option value="puc2">PUC2</option>
               <option value="cse">CSE</option>
