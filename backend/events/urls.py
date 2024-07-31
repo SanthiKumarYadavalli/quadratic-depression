@@ -9,5 +9,6 @@ urlpatterns = [
     path("add-feedback/<int:pk>/", views.add_feedback),
     path("feedbacks/<int:pk>/", views.FeedbackList.as_view()),
     path("volunteers/<int:pk>/", views.VolunteerList.as_view()),
+    path("<str:status>/", views.EventList.as_view()),
     path("get-ai-name/", views.ai_name),
 ]
