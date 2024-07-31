@@ -40,7 +40,6 @@ def add_feedback(request, pk):
 def ai_name(request):
     prompt = f"""Just give me your response in a single word.
 A creative name for {request.data.get('prompt')}"""
-    print(request.data)
     name = get_ai_name(prompt)
     return Response({'name': name}, status=status.HTTP_200_OK)
 
@@ -77,10 +76,7 @@ class EventList(generics.ListCreateAPIView):  # /events/
 class EventDetails(generics.RetrieveUpdateAPIView):  # /events/pk
     serializer_class = EventSerializer
     lookup_field = 'pk'
-
-    def get_queryset(self):
-        events = Event.objects.filter(host=self.request.user)
-        return events
+    queryset = Event.objects.all()
     
     
 class FeedbackList(generics.ListAPIView):  # events/get-feedback/pk
