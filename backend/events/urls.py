@@ -7,6 +7,7 @@ urlpatterns = [
     path("add-participant/<int:pk>/", views.add_participant),
     path("add-volunteer/<int:pk>/", views.add_volunteers),
     path("add-feedback/<int:pk>/", views.add_feedback),
-    path("get-feedback/<int:pk>/", views.FeedbackList.as_view()),
+    path("feedbacks/<int:pk>/", views.FeedbackList.as_view()),
+    path("volunteers/<int:pk>/", views.VolunteerList.as_view()),
     path("get-ai-name/", views.ai_name),
 ]
