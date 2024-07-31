@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Logout from "./Logout";
 import { useAuthContext } from "../context/AuthContext";
 import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import { LuSparkles } from "react-icons/lu";
 
 const Navbar = () => {
   const { authUser } = useAuthContext();
@@ -16,8 +17,10 @@ const Navbar = () => {
     <header className="w-full bg-glass border-b sticky top-0 z-50 backdrop-blur-md">
       <nav className="container mx-auto flex items-center justify-between py-2 px-4">
         <div className="flex items-center">
-          <img className="h-6 mr-2" src="/rgukt.jpeg" alt="Github Logo" />
-          <h1 className="text-lg font-bold">RK Valley</h1>
+        <div className="text-4xl text-white-500 p-4">
+          <LuSparkles />
+        </div>
+          <h1 className="text-lg font-bold">Event Horizon</h1>
         </div>
         <div className="hidden md:flex gap-2 items-center">
           {!authUser && (

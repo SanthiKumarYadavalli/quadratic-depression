@@ -67,7 +67,8 @@ const EventDetails = () => {
                     <ul className="space-y-4 text-gray-700">
                         <li className="text-xl font-semibold">Name: <span className="font-normal">{event.name}</span></li>
                         <li className="text-xl font-semibold">Description: <span className="font-normal">{event.description}</span></li>
-                        {/* <li className="text-xl font-semibold">Date and Time: <span className="font-normal">To be determined</span></li> */}
+                        <li className="text-xl font-semibold">Start Date and Time: <span className="font-normal">{event.start_time}</span></li>
+                        <li className="text-xl font-semibold">End Date and Time: <span className="font-normal">To Be Determined</span></li>
                         <li className="text-xl font-semibold">Category: <span className="font-normal">{event.category}</span></li>
                         <li className="text-xl font-semibold">Eligibility: <span className="font-normal">{event.eligibility}</span></li>
                         <li className="text-xl font-semibold">Venue: <span className="font-normal">{event.venue}</span></li>
