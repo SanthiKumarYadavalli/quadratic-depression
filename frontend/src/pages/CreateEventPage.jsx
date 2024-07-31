@@ -8,14 +8,16 @@ import { FaUpload } from "react-icons/fa6";
 const CreateEventPage = () => {
   const [selectedOption, setSelectedOption] = useState('upload');
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedDateTime, setSelectedDateTime] = useState('');
+  const [selectedStartDateTime, setSelectedStartDateTime] = useState('');
+  const [selectedEndDateTime, setSelectedEndDateTime] = useState('');
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     imageType: "",
     fileUpload: null,
-    startDateTime: "",
+    start_time: "",
+    end_time: "",
     category: "",
     eligibility: "",
     venue: "",
@@ -32,11 +34,18 @@ const CreateEventPage = () => {
       fileUpload: event.target.files[0],
     });
   }
-  const handleDateTimeChange = (event) => {
-    setSelectedDateTime(event.target.value);
+  const handleStartDateTimeChange = (event) => {
+    setSelectedStartDateTime(event.target.value);
     setFormData((prevData) => ({
       ...prevData,
-      startDateTime: event.target.value,
+      start_time: event.target.value,
+    }));
+  };
+  const handleEndDateTimeChange = (event) => {
+    setSelectedEndDateTime(event.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      end_time: event.target.value,
     }));
   };
 
@@ -71,6 +80,10 @@ const CreateEventPage = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(selectedStartDateTime>selectedEndDateTime){
+      toast.error("Start and End date are not valid.");
+      return;
+    }
     if (selectedOption === 'upload') {
       formData.imageType = 'upload';
       formData.fileUpload = selectedFile;
@@ -198,16 +211,34 @@ const CreateEventPage = () => {
           <div className="mb-4">
             <label
               className="block text-white mb-2 text-sm font-medium"
-              htmlFor="startDateTime"
+              htmlFor="start_time"
             >
-              Select Date and Time:
+              START Time:
             </label>
             <input
               type="datetime-local"
-              id="startDateTime"
-              name="startDateTime"
-              value={selectedDateTime}
-              onChange={handleDateTimeChange}
+              id="start_time"
+              name="start_time"
+              value={selectedStartDateTime}
+              onChange={handleStartDateTimeChange}
+              className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-white mb-2 text-sm font-medium"
+              htmlFor="end_time"
+            >
+              END Time:
+            </label>
+            <input
+              type="datetime-local"
+              id="end_time"
+              name="end_time"
+              value={selectedEndDateTime}
+              onChange={handleEndDateTimeChange}
               className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
@@ -262,6 +293,7 @@ const CreateEventPage = () => {
               <option value="civil">Civil</option>
               <option value="che">CHE</option>
               <option value="mme">MME</option>
+              <option value="everyone">Everyone</option>
             </select>
           </div>
 
