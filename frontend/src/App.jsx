@@ -9,7 +9,7 @@ import HomePage from "./pages/HomePage.jsx";
 import EventsPage from "./pages/EventsPage.jsx";
 import CreateEventPage from "./pages/CreateEventPage.jsx";
 import UserDashboard from "./pages/UserDashboard.jsx";
-
+import EventDetails from "./pages/EventDetails.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { useAuthContext } from "./context/AuthContext";
 
@@ -45,7 +45,8 @@ function App() {
             element={authUser ? <UserDashboard /> : <Navigate to={"/login"} />}
           />
           <Route path="/create-event/" element={<CreateEventPage />} />
-\        </Routes>
+          <Route path="/event/:id/" element={<EventDetails />} />
+        </Routes>
         <Toaster />
       </div>
     </div>
