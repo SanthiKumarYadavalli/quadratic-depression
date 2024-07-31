@@ -1,14 +1,50 @@
-/* eslint-disable react/prop-types */
-import React from "react";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const EventCard = ({ card }) => {
   console.log(card, card.image);
   const image = card.image ? card.image : "https://via.placeholder.com/400";
   console.log(image);
 
+  const addParticipant = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `${process.env.REACT_APP_API}/events/add-participant/${card.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Registered Successfully.");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const addVolunteer = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(
+        `${process.env.REACT_APP_API}/events/add-volunteer/${card.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("added as Volunteer Successfully.");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className='card p-8 border-indigo-300 rounded-2xl hover:shadow-xl hover:shadow-indigo-50'>
-      <a href="#">
+      <Link to={`/event/${card.id}`}>
         <img
           src={image}
           alt="image"
@@ -19,20 +55,27 @@ const EventCard = ({ card }) => {
           <p className="mt-2 text-white-900">{card.description} </p>
         </div>
         <div className="card-btns mt-5 flex justify-between">
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900"
-          >
-            Register
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900"
-          >
-            Volunteer
-          </button>
+          <Link to={`/events`}>
+            <button
+              type="button"
+              className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900"
+              onClick={addParticipant}
+            >
+              Register
+            </button>
+          </Link>
+          <Link to={`/events`}>
+            <button
+
+              type="button"
+              className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-900"
+              onClick={addVolunteer}
+            >
+              Volunteer
+            </button>
+          </Link>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

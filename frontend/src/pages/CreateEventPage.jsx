@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { VscBeaker } from "react-icons/vsc";       
+import { VscBeaker } from "react-icons/vsc";
 import { FaUpload } from "react-icons/fa6";
 
 const CreateEventPage = () => {
@@ -151,6 +151,7 @@ const CreateEventPage = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              required
             />
           </div>
           <div className='mb-10'>
@@ -177,7 +178,7 @@ const CreateEventPage = () => {
                 checked={selectedOption === "generate"}
                 onChange={handleOptionChange}
                 className="toHide"
-              /><label htmlFor="generateOption"><div  className={`form-btn2 ${selectedOption === 'generate' ? 'bg-cyan-500 text-black' : ''}`}>Generate<VscBeaker/>
+              /><label htmlFor="generateOption"><div className={`form-btn2 ${selectedOption === 'generate' ? 'bg-cyan-500 text-black' : ''}`}>Generate<VscBeaker />
               </div></label>
             </div>
             {selectedOption === 'upload' && (
@@ -189,7 +190,7 @@ const CreateEventPage = () => {
                   accept=".jpg, .jpeg, .png"
                   onChange={handleFileChange}
                   className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            
+
                 />
               </div>
             )}
@@ -208,6 +209,7 @@ const CreateEventPage = () => {
               value={selectedDateTime}
               onChange={handleDateTimeChange}
               className="w-full px-4 py-2 text-gray-900 bg-gray-200 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
             />
           </div>
 
@@ -224,6 +226,7 @@ const CreateEventPage = () => {
               name="category"
               value={formData.category}
               onChange={handleChange}
+              required
             >
               <option value="" disabled>
                 Select Category
@@ -247,7 +250,7 @@ const CreateEventPage = () => {
               name="eligibility"
               value={formData.eligibility}
               onChange={handleChange}
-            // required
+              required
             >
               <option value="" disabled>Select Year of Study</option>
               <option value="puc1">PUC1</option>
@@ -276,7 +279,7 @@ const CreateEventPage = () => {
               name="venue"
               value={formData.venue}
               onChange={handleChange}
-            // required
+              required
             />
           </div>
 
