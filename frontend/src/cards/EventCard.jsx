@@ -4,11 +4,33 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const EventCard = ({ card }) => {
-  console.log(card, card.image);
-  const image = card.image ? card.image : "https://via.placeholder.com/400";
+  const [userData, setUserData] = useState({
+    name: '',
+    id: '',
+    phone: '',
+    email: '',
+    branch: ''
+  });
+  const image = card.image;
   console.log(image);
+  const fetchUser = async() => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API}/user/get/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUserData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  fetchUser();
 
   const addParticipant = async () => {
+    if(card.eligibility!='Everyone' && userData.branch!=card.eligibility){
+      toast.error("You are Not Eligible");
+      return;
+    }
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(
@@ -26,6 +48,10 @@ const EventCard = ({ card }) => {
   }
 
   const addVolunteer = async () => {
+    if(card.eligibility!='Everyone' && userData.branch!=card.eligibility){
+      toast.error("You are Not Eligible");
+      return;
+    }
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(

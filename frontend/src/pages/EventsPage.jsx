@@ -7,32 +7,76 @@ import { Triangle } from "react-loader-spinner";
 import toast from "react-hot-toast";
 
 const EventsPage = () => {
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [upcomingEvents,setUpcomingEvents]=useState([]);
+  const [ongoingEvents,setOngoingEvents]=useState([]);
+  const [completedEvents,setCompletedEvents]=useState([]);
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUpcomingEvents = async () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `${process.env.REACT_APP_API}/events/`,
+          `${process.env.REACT_APP_API}/events/upcoming`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setData(response.data);
+        console.log("Upcoming Events");
+        setUpcomingEvents(response.data);
         console.log(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-        toast.error("No Network");
         setLoading(false);
       }
     };
+    fetchUpcomingEvents();
 
-    fetchData();
+    const fetchOngoingEvents = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/events/ongoing`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("Ongoing Events");
+        setOngoingEvents(response.data);
+        console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    fetchOngoingEvents();
+
+    const fetchCompletedEvents = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/events/ended`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("Completed Events");
+        setCompletedEvents(response.data);
+        console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    fetchCompletedEvents();
   }, []);
   if (loading) {
     return (
@@ -56,11 +100,25 @@ const EventsPage = () => {
         <video className="video-background__video" src="/bg_home.mp4" autoPlay loop muted playsInline></video>
       </div>
 
-      <h1 className="text-4xl mb-6">Events for You</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {data.map((card) => (
+      <h1 className="text-4xl mb-2">Ongoing Events</h1>
+      <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {ongoingEvents.length>0?(ongoingEvents.map((card) => (
           <EventCard key={card.id} card={card} />
-        ))}
+        ))):(<p className="text-white-300">No Events to display</p>)}
+      </div>
+
+      <h1 className="text-4xl mb-6">Upcoming Events</h1>
+      <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {upcomingEvents.length>0?(upcomingEvents.map((card) => (
+          <EventCard key={card.id} card={card} />
+        ))):(<p className="text-white-300">No Events to display</p>)}
+      </div>
+
+      <h1 className="text-4xl mb-6">Completed Events</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {completedEvents.length>0?(completedEvents.map((card) => (
+          <EventCard key={card.id} card={card} />
+        ))):(<p className="text-white-300">No Events to display</p>)}
       </div>
       <Link to="/create-event">
         <button
