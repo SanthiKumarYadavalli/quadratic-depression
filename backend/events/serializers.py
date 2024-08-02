@@ -6,7 +6,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['name', 'description', 'category', 'eligibility', 'venue',
-                  'id', 'status', 'image', 'start_time']
+                  'id', 'image', 'start_time', 'end_time']
 
 
 class FeedbackSerializer(serializers.ModelSerializer):

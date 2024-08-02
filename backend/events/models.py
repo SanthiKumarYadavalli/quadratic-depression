@@ -8,15 +8,18 @@ class Event(models.Model):
     name = models.CharField(max_length=32)
     host = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, related_name='hosted')
     description = models.TextField()
-    start_time = models.DateTimeField(null=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
     category = models.CharField(max_length=23)
-    status = models.CharField(max_length=23, default="upcoming")
     eligibility = models.CharField(max_length=23)
     venue = models.TextField()
     image = models.ImageField(upload_to="images", null=True)
     participants = models.ManyToManyField(Student, blank=True, related_name='participated')
     volunteers = models.ManyToManyField(Student, blank=True, related_name='volunteered')
 
+    class Meta:
+        ordering = ["-start_time"]
+    
     def __str__(self) -> str:
         return self.name
 
